@@ -1,65 +1,95 @@
-import Image from "next/image";
+import PropertyCard from "@/components/PropertyCard";
+import Link from "next/link";
+
+const sampleProperties = [
+  {
+    slug: "al-olaya-premium-suite",
+    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600",
+    title: "Al Olaya Premium Suite",
+    city: "Riyadh",
+    type: "Apartment",
+    price: 450,
+    rating: 4.8,
+  },
+  {
+    slug: "red-sea-corniche-villa",
+    image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600",
+    title: "Red Sea Corniche Villa",
+    city: "Jeddah",
+    type: "Villa",
+    price: 1200,
+    rating: 4.9,
+  },
+  {
+    slug: "diriyah-heritage-chalet",
+    image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600",
+    title: "Diriyah Heritage Chalet",
+    city: "Riyadh",
+    type: "Chalet",
+    price: 680,
+    rating: 4.7,
+  },
+  {
+    slug: "abha-mountain-camp",
+    image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600",
+    title: "Abha Mountain Camp",
+    city: "Abha",
+    type: "Camp",
+    price: 320,
+    rating: 4.6,
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div>
+      {/* Hero section */}
+      <section className="bg-gradient-to-b from-emerald-50 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900">
+            Find your next stay in Saudi Arabia
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mt-4 text-lg text-gray-600">
+            Book Now · Naqera Lease · For Sale
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+
+          {/* Search bar */}
+          <div className="mt-8 max-w-3xl mx-auto bg-white rounded-2xl shadow-lg border border-gray-200 p-3 flex flex-col sm:flex-row gap-2">
+            <input
+              type="text"
+              placeholder="Where are you going?"
+              className="flex-1 px-4 py-3 rounded-xl focus:outline-none focus:bg-gray-50"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            <input
+              type="date"
+              className="px-4 py-3 rounded-xl focus:outline-none focus:bg-gray-50"
+            />
+            <input
+              type="number"
+              placeholder="Guests"
+              min={1}
+              className="w-full sm:w-24 px-4 py-3 rounded-xl focus:outline-none focus:bg-gray-50"
+            />
+            <button className="bg-emerald-600 text-white font-medium px-6 py-3 rounded-xl hover:bg-emerald-700">
+              Search
+            </button>
+          </div>
         </div>
-      </main>
+      </section>
+
+      {/* Property listings */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">
+          Popular in Saudi Arabia
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {sampleProperties.map((property) => (
+            <Link key={property.slug} href={`/property/${property.slug}`}>
+              <PropertyCard {...property} />
+            </Link>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
